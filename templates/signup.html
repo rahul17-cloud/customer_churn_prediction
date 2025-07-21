@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #6dd5ed, #2193b0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .signup-container {
+      background: rgba(255,255,255,0.97);
+      padding: 2.5rem 2rem 2rem 2rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+      width: 100%;
+      max-width: 350px;
+      text-align: center;
+    }
+    h2 {
+      color: #2193b0;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input {
+      padding: 0.75rem 1rem;
+      border: 1px solid #b2dfef;
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+      transition: border 0.2s;
+    }
+    input:focus {
+      border-color: #2193b0;
+    }
+    button {
+      padding: 0.75rem 1rem;
+      background: #2193b0;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #6dd5ed;
+      color: #2193b0;
+    }
+    p {
+      margin-top: 1.2rem;
+      font-size: 1rem;
+    }
+    a {
+      color: #2193b0;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: #6dd5ed;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <h2>Sign Up</h2>
+    <form method="POST">
+      <input name="username" required placeholder="Username">
+      <input name="password" type="password" required placeholder="Password">
+      <button type="submit">Sign Up</button>
+    </form>
+    <p>Already have an account? <a href="/login">Login</a></p>
+  {% include 'includes/chatbot_script.html' %}

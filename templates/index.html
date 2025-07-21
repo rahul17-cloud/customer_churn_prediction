@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customer Churn Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      background: 
+        linear-gradient(135deg, rgba(109,213,237,0.85), rgba(33,147,176,0.85)),
+        url('https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+      background-size: cover;
+    }
+    .container {
+      background: rgba(255,255,255,0.95);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+      padding: 3rem 2.5rem;
+      text-align: center;
+    }
+    h1 {
+      color: #2193b0;
+      margin-bottom: 1.5rem;
+    }
+    a {
+      display: inline-block;
+      padding: 12px 32px;
+      background-color: #2193b0;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      transition: background 0.2s;
+      font-weight: 500;
+      margin-top: 1rem;
+    }
+    a:hover {
+      background-color: #6dd5ed;
+      color: #2193b0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to the Customer Churn Prediction Dashboard</h1>
+    <a href="/signup">Get Started</a>
+  </div>
+  {% include 'includes/chatbot_script.html' %}
+</body>
+</html>

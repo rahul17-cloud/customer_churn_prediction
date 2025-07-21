@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Churn Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        th { background-color: #f8f8f8; }
+
+        .buttons {
+            margin-bottom: 20px;
+        }
+        .buttons button {
+            margin-right: 10px;
+            padding: 10px 15px;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .churn { background-color: #28a745; }
+        .not-churn { background-color: #dc3545; }
+
+        .row-churn { background-color: #d4edda; }        
+        .row-not-churn { background-color: #f8d7da; }    
+    </style>
+</head>
+<body>
+    <h1>Customer Churn Dashboard</h1>
+
+    <div class="buttons">
+        <a href="{{ url_for('download_csv', category='churn') }}">
+            <button class="churn">Download Churned Customers CSV</button>
+        </a>
+        <a href="{{ url_for('download_csv', category='not_churn') }}">
+            <button class="not-churn">Download Non-Churned Customers CSV</button>
+        </a>
+    </div>
+
+    <h2>Churned Customers</h2>
+    <table>
+        <tr>
+            {% for key in churned[0].keys() %}
+            <th>{{ key }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in churned %}
+        <tr class="row-churn">
+            {% for val in row.values() %}
+            <td>{{ val }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Non-Churned Customers</h2>
+    <table>
+        <tr>
+            {% for key in not_churned[0].keys() %}
+            <th>{{ key }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in not_churned %}
+        <tr class="row-not-churn">
+            {% for val in row.values() %}
+            <td>{{ val }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,153 @@
+
+<button id="chat-toggle" onclick="toggleChatbox()">💬</button>
+
+<div id="chat-container" style="display: none;">
+  <div id="chat-header">Your buddy <span onclick="toggleChatbox()">✖️</span></div>
+  <div id="chat-messages"></div>
+  <div id="chat-input">
+    <input type="text" id="user-input" placeholder="Type your message..." onkeydown="if(event.key==='Enter') sendMessage()" />
+    <button onclick="sendMessage()">➤</button>
+  </div>
+</div>
+
+<style>
+  #chat-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25d366;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    padding: 15px;
+    color: white;
+    cursor: pointer;
+    z-index: 1000;
+  }
+
+  #chat-container {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 350px;
+    max-height: 500px;
+    background: #f0f0f0;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1000;
+    font-family: "Segoe UI", sans-serif;
+  }
+
+  #chat-header {
+    background-color: #075e54;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #chat-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background: #e5ddd5;
+  }
+
+  .message {
+    max-width: 75%;
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 15px;
+    clear: both;
+  }
+
+  .user-message {
+    background-color: #dcf8c6;
+    align-self: flex-end;
+    margin-left: auto;
+    border-bottom-right-radius: 0;
+  }
+
+  .bot-message {
+    background-color: #ffffff;
+    align-self: flex-start;
+    margin-right: auto;
+    border-bottom-left-radius: 0;
+  }
+
+  #chat-input {
+    display: flex;
+    padding: 10px;
+    background: #f0f0f0;
+    border-top: 1px solid #ccc;
+  }
+
+  #user-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+  }
+
+  #chat-input button {
+    margin-left: 10px;
+    background-color: #25d366;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  function toggleChatbox() {
+    const container = document.getElementById("chat-container");
+    container.style.display = container.style.display === "none" ? "flex" : "none";
+  }
+
+  function appendMessage(text, type) {
+    const chatMessages = document.getElementById("chat-messages");
+    const msgDiv = document.createElement("div");
+    msgDiv.className = `message ${type}-message`;
+    msgDiv.textContent = text;
+    chatMessages.appendChild(msgDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById("user-input");
+    const userText = input.value.trim();
+    if (!userText) return;
+
+    appendMessage(userText, "user");
+    input.value = "";
+
+    appendMessage("Typing...", "bot");
+
+    try {
+      const res = await fetch("/chatbot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userText })
+      });
+
+      const data = await res.json();
+      const chatMessages = document.getElementById("chat-messages");
+      chatMessages.lastChild.remove();
+
+      appendMessage(data.response, "bot");
+
+    } catch (err) {
+      appendMessage("Oops! Something went wrong.", "bot");
+    }
+  }
+</script>
